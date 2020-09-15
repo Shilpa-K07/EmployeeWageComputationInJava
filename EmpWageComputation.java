@@ -6,13 +6,23 @@ public class EmpWageComputation
 	public static void main(String[] args)
 	{
 		int dailyWage=0;
+		int workingHour=0;
 		System.out.println("Welcome to employee wage computation problem !");
         	int random=(int)Math.floor(Math.random()*10)%3;
-		if(random ==1)
-		dailyWage=WAGEPERHOUR*FULLDAYHOUR;
-		else if(random ==2)
-		dailyWage=WAGEPERHOUR*PARTTIMEHOUR;
 
+		 switch(random)
+                {
+                        case 1: 
+			workingHour=FULLDAYHOUR;
+                        break;
+                        case 2: 
+			workingHour=PARTTIMEHOUR;
+                        break;
+                        default:       
+			workingHour=workingHour;
+                        break;
+                }
+		dailyWage=workingHour*WAGEPERHOUR;
 		System.out.println("Daily Wage is:" +dailyWage);
 	}
 }
