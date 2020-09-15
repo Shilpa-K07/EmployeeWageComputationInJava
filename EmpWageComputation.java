@@ -15,17 +15,17 @@ public class EmpWageComputation
 		{
 			int random=(int)Math.floor(Math.random()*10)%3;                        
 		 	switch(random)
-         	{
-            	case 1: 
-					workingHour=FULLDAYHOUR;
-               break;
-               case 2: 
-					workingHour=PARTTIMEHOUR;
-               break;
-               default:       
-					workingHour=0;
-               break;
-				}
+         		{
+            			case 1: 
+				workingHour=FULLDAYHOUR;
+               			break;
+               			case 2: 
+				workingHour=PARTTIMEHOUR;
+               			break;
+               			default:       
+				workingHour=0;
+               			break;
+			}
 			i++;
 			totalWage+=workingHour*WAGEPERHOUR;
 		 }
