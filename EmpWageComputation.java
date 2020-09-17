@@ -1,3 +1,5 @@
+import java.util.*;
+import java.util.Scanner;
 public class EmpWageComputation
 {
 	public static final int FULLDAYHOUR=8;
@@ -36,9 +38,31 @@ public class EmpWageComputation
                 System.out.println("Total Wage of "+company+" is : " +totalWage);
         }
 		
+	public static ArrayList getDetails()
+	{
+		Scanner scn=new Scanner(System.in);
+		ArrayList arr=new ArrayList();
+		System.out.println("Enter company name");
+		arr.add(scn.next());
+		System.out.println("Enter Wage per hour");
+		arr.add(scn.nextInt());
+		System.out.println("Enter total working days");
+		arr.add(scn.nextInt());
+		System.out.println("Enter total working hours");
+		arr.add(scn.nextInt());
+		return arr;
+	}
 	public static void main(String[] args)
 	{
-		calculateEmpWage("Oracle",40,20,100);
-		calculateEmpWage("Intel",30,30,200);
+		Scanner scn =new Scanner(System.in);
+		System.out.println("Enter the number of companies");
+		int n=scn.nextInt();
+		int i=0;
+		while(i<n)
+		{
+			ArrayList arr=getDetails();
+			calculateEmpWage(arr.get(0).toString(),(int)arr.get(1),(int)arr.get(2),(int)arr.get(3));
+			i++;
+		}
 	}
 }
