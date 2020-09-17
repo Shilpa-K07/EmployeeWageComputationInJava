@@ -12,11 +12,9 @@ public class EmpWageComputation
                 int currentWorkingDays=0;
                 int currentWorkingHour=0;
                 int totalWage=0;
-
-
-                  while(currentWorkingDays<TOTALWORKINGDAYS && currentWorkingHour<MAXWORKINGHOURS)
+                while(currentWorkingDays<TOTALWORKINGDAYS && currentWorkingHour<MAXWORKINGHOURS)
                 {
-                        int randomNumber=(int)Math.floor(Math.random()*10)%3;
+                	int randomNumber=(int)Math.floor(Math.random()*10)%3;
                         switch(randomNumber)
                         {
                                 case 1:
@@ -39,16 +37,13 @@ public class EmpWageComputation
                 System.out.println("Total Wage of is : " +totalWage);
         }
 
-	
 	public static void calculateEmpWage(String company,int wagePerHr,int totalWorkingDays,int totalWorkingHours)
 	{
 		int workingHour=0;
 		int currentWorkingDays=0;
 		int currentWorkingHour=0;
 		int totalWage=0;
-		
-		
-		  while(currentWorkingDays<totalWorkingDays && currentWorkingHour<totalWorkingHours)
+		while(currentWorkingDays<totalWorkingDays && currentWorkingHour<totalWorkingHours)
                 {
                         int randomNumber=(int)Math.floor(Math.random()*10)%3;
                         switch(randomNumber)
@@ -116,8 +111,8 @@ public class EmpWageComputation
 		dailyWage=workingHour*WAGEPERHOUR;
 		System.out.println("Daily Wage is:" +dailyWage);
 
-		 while(i<TOTALWORKINGDAYS)
-		 {
+		while(i<TOTALWORKINGDAYS)
+		{
 			int randomNum=(int)Math.floor(Math.random()*10)%3;                        
 		 	switch(randomNum)
          		{
@@ -138,7 +133,7 @@ public class EmpWageComputation
 		System.out.println("Wage calculation by checking maximum hours and maximum days");
 		totalWage=0;
 		i=0;
-		 while(i<TOTALWORKINGDAYS && currentWorkingHour<MAXWORKINGHOURS)
+		while(i<TOTALWORKINGDAYS && currentWorkingHour<MAXWORKINGHOURS)
 		{
 			int randomNumber=(int)Math.floor(Math.random()*10)%3;                        
 		 	switch(randomNumber)
