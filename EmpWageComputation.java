@@ -2,7 +2,7 @@ public class EmpWageComputation
 {
 	public static final int WAGEPERHOUR=20;
 	public static final int FULLDAYHOUR=8;
-	public static final int PARTTIMEHOUR=8;
+	public static final int PARTTIMEHOUR=4;
 	public static final int	TOTALWORKINGDAYS=20;
 	public static final int MAXWORKINGHOURS=100;
 	
