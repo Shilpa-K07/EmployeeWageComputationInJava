@@ -1,12 +1,9 @@
 public class EmpWageComputation
 {
-	public static final int WAGEPERHOUR=20;
 	public static final int FULLDAYHOUR=8;
-	public static final int PARTTIMEHOUR=8;
-	public static final int	TOTALWORKINGDAYS=20;
-	public static final int MAXWORKINGHOURS=100;
+	public static final int PARTTIMEHOUR=4;
 	
-	public static void calculateEmpWage()
+	public static void calculateEmpWage(String company,int wagePerHr,int totalWorkingDays,int totalWorkingHours)
 	{
 		int workingHour=0;
 		int currentWorkingDays=0;
@@ -14,7 +11,7 @@ public class EmpWageComputation
 		int totalWage=0;
 		
 		
-		  while(currentWorkingDays<TOTALWORKINGDAYS && currentWorkingHour<MAXWORKINGHOURS)
+		  while(currentWorkingDays<totalWorkingDays && currentWorkingHour<totalWorkingHours)
                 {
                         int randomNumber=(int)Math.floor(Math.random()*10)%3;
                         switch(randomNumber)
@@ -31,16 +28,17 @@ public class EmpWageComputation
                         }
                         currentWorkingDays++;
                         currentWorkingHour+=workingHour;
-                        if(currentWorkingHour<MAXWORKINGHOURS)
-                        totalWage+=workingHour*WAGEPERHOUR;
+                        if(currentWorkingHour<totalWorkingHours)
+                        totalWage+=workingHour*wagePerHr;
                         else
                         break;
                  }
-                System.out.println("Total Wage is :" +totalWage);
+                System.out.println("Total Wage of "+company+" is : " +totalWage);
         }
 		
 	public static void main(String[] args)
 	{
-		calculateEmpWage();
+		calculateEmpWage("Oracle",40,20,100);
+		calculateEmpWage("Intel",30,30,200);
 	}
 }
