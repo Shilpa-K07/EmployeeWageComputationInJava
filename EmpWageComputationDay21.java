@@ -39,50 +39,6 @@ public class EmpWageComputationDay21
                 System.out.println("Total Wage of is : " +totalWage);
         }
 
-	public static void calculateEmpWage(String company,int wagePerHr,int totalWorkingDays,int totalWorkingHours)
-	{
-		int workingHour=0;
-		int currentWorkingDays=0;
-		int currentWorkingHour=0;
-		int totalWage=0;
-		while(currentWorkingDays<totalWorkingDays && currentWorkingHour<totalWorkingHours)
-                {
-                        int randomNumber=(int)Math.floor(Math.random()*10)%3;
-                        switch(randomNumber)
-                        {
-                                case 1:
-                                workingHour=FULLDAYHOUR;
-                                break;
-                                case 2:
-                                workingHour=PARTTIMEHOUR;
-                                break;
-                                default:
-                                workingHour=0;
-                                break;
-                        }
-                        currentWorkingDays++;
-                        currentWorkingHour+=workingHour;
-                        if(currentWorkingHour<totalWorkingHours)
-                        totalWage+=workingHour*wagePerHr;
-                        else
-                        break;
-                 }
-                System.out.println("Total Wage of "+company+" is : " +totalWage);
-        }
-	public static ArrayList getDetails()
-	{
-		Scanner scn=new Scanner(System.in);
-		ArrayList arr=new ArrayList();
-		System.out.println("Enter company name");
-		arr.add(scn.next());
-		System.out.println("Enter Wage per hour");
-		arr.add(scn.nextInt());
-		System.out.println("Enter total working days");
-		arr.add(scn.nextInt());
-		System.out.println("Enter total working hours");
-		arr.add(scn.nextInt());
-		return arr;
-	}	
 	public static void main(String[] args)
 	{
 		System.out.println("Welcome to employee wage computation problem !");
@@ -173,5 +129,5 @@ public class EmpWageComputationDay21
 		System.out.println("Wage for a month:" +totalWage);
 		System.out.println("Wage calculation using class method");
 		calculateEmpWage();
-	}
+    }
 }
