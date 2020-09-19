@@ -40,9 +40,11 @@ public class EmpWageComputation implements IEmpWageComputation
 	private int numberOfCompany=0;
 
 	ArrayList<CompanyEmpWage>companyEmpWageList;
+	ArrayList dailyWageList;
 	EmpWageComputation()
 	{
 		companyEmpWageList=new ArrayList<>();
+		dailyWageList=new ArrayList();
 	}
 	
 	@Override	
@@ -60,14 +62,17 @@ public class EmpWageComputation implements IEmpWageComputation
 			continue;
 			list.setTotalWage(calculateEmpWage(list));
 			System.out.println(list);
+			System.out.println("Daily Wage is :"+dailyWageList); 
 		}
 	}
+
 	private int calculateEmpWage(CompanyEmpWage companyEmpWage)
 	{
 		int workingHour=0;
 		int currentWorkingDays=0;
 		int currentWorkingHour=0;
 		int totalSalary=0;
+		int dailyWage=0;
 		
 		while(currentWorkingDays<companyEmpWage.numberOfWorkingDays && currentWorkingHour<companyEmpWage.numberOfWorkingHours)
                 {
@@ -87,18 +92,22 @@ public class EmpWageComputation implements IEmpWageComputation
                         currentWorkingDays++;
                         currentWorkingHour+=workingHour;
                         if(currentWorkingHour<companyEmpWage.numberOfWorkingHours)
-                        totalSalary+=workingHour*companyEmpWage.wagePerHour;
-                        else
+			{
+                        dailyWage=workingHour*companyEmpWage.wagePerHour;
+			dailyWageList.add(dailyWage);
+			totalSalary+=workingHour*companyEmpWage.wagePerHour;
+                        }
+			else
                         break;
                  }
 	return totalSalary;
         }
-		
+	
 	public static void main(String[] args)
 	{
 	 	EmpWageComputation object=new EmpWageComputation();
-		object.addCompanyEmpWage("Intel",20,28,100);
-		object.addCompanyEmpWage("Oracle",30,20,200);
+		object.addCompanyEmpWage("Intel",20,10,100);
+		object.addCompanyEmpWage("Oracle",30,10,200);
 		object.computeWage();
 	}
 }
