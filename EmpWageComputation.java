@@ -1,3 +1,5 @@
+import java.util.*;
+
 interface IEmpWageComputation
 {
 	public void addCompanyEmpWage(String company,int wagePerHour,int numberOfWorkingDays,int numberOfWorkingHours);
@@ -37,30 +39,27 @@ public class EmpWageComputation implements IEmpWageComputation
         public static final int PARTTIMEHOUR=4;
 	private int numberOfCompany=0;
 
-	CompanyEmpWage[] companyEmpWageArray;
-
-	public EmpWageComputation(int size)
+	ArrayList<CompanyEmpWage>companyEmpWageList;
+	EmpWageComputation()
 	{
-		companyEmpWageArray=new CompanyEmpWage[size];
+		companyEmpWageList=new ArrayList<>();
 	}
 	
 	@Override	
 	public void addCompanyEmpWage(String company,int wagePerHour,int numberOfWorkingDays,int numberOfWorkingHours)	
 	{
-		companyEmpWageArray[numberOfCompany]=new CompanyEmpWage(company,wagePerHour,numberOfWorkingDays,numberOfWorkingHours);
-		numberOfCompany++;
-		
+		companyEmpWageList.add(new CompanyEmpWage(company,wagePerHour,numberOfWorkingDays,numberOfWorkingHours));
 	}
 	
 	@Override
 	public void computeWage()
 	{
-		for(CompanyEmpWage array:companyEmpWageArray)
+		for(CompanyEmpWage list:companyEmpWageList)
 		{
-			if(array==null)
+			if(list==null)
 			continue;
-			array.setTotalWage(calculateEmpWage(array));
-			System.out.println(array);
+			list.setTotalWage(calculateEmpWage(list));
+			System.out.println(list);
 		}
 	}
 	private int calculateEmpWage(CompanyEmpWage companyEmpWage)
@@ -97,7 +96,7 @@ public class EmpWageComputation implements IEmpWageComputation
 		
 	public static void main(String[] args)
 	{
-	 	EmpWageComputation object=new EmpWageComputation(5);
+	 	EmpWageComputation object=new EmpWageComputation();
 		object.addCompanyEmpWage("Intel",20,28,100);
 		object.addCompanyEmpWage("Oracle",30,20,200);
 		object.computeWage();
