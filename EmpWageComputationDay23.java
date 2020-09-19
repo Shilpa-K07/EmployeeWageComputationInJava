@@ -1,15 +1,22 @@
-public class EmpWageComputation
-{
-	public static final int FULLDAYHOUR=8;
-	public static final int PARTTIMEHOUR=4;
-	private int totalWage=0;	
+import java.util.*;
 
-	private static String company;
-	private static int wagePerHour;
-	private static int numberOfWorkingDays;
-	private static int numberOfWorkingHours;
+interface IEmpWageComputation
+{
+	public void addCompanyEmpWage(String company,int wagePerHour,int numberOfWorkingDays,int numberOfWorkingHours);
+	public void computeWage();
+	public int getTotalWageByCompany(String company);
+}
+
+class CompanyEmpWage
+{
+	public int totalWage=0;	
 	
-	public EmpWageComputation(String company,int wagePerHour,int numberOfWorkingDays,int numberOfWorkingHours)
+	public final String company;
+	public final int wagePerHour;
+	public final int numberOfWorkingDays;
+	public final int numberOfWorkingHours;
+	
+	public CompanyEmpWage(String company,int wagePerHour,int numberOfWorkingDays,int numberOfWorkingHours)
 	{
 		this.company=company;
 		this.wagePerHour=wagePerHour;
@@ -17,18 +24,63 @@ public class EmpWageComputation
 		this.numberOfWorkingHours=numberOfWorkingHours;
 	}
 	
+	public void setTotalWage(int totalWage)
+	{
+		this.totalWage=totalWage;
+	}
 	public String toString()
 	{
-		return "Total Wage of "+company+" is: "+totalWage;
+		return "Total Wage for company "+company+" is: "+totalWage;
+	}
+}
+
+public class EmpWageComputationDay23 implements IEmpWageComputation	
+{		
+	public static final int FULLDAYHOUR=8;
+        public static final int PARTTIMEHOUR=4;
+	private int numberOfCompany=0;
+
+	ArrayList<CompanyEmpWage>companyEmpWageList;
+	ArrayList dailyWageList;
+	Map<String,CompanyEmpWage>companyEmpWageMap;
+
+	EmpWageComputationDay23()
+	{
+		companyEmpWageList=new ArrayList<>();
+		dailyWageList=new ArrayList();
+		companyEmpWageMap=new HashMap<>();
 	}
 	
-	public void calculateEmpWage()
+	@Override	
+	public void addCompanyEmpWage(String company,int wagePerHour,int numberOfWorkingDays,int numberOfWorkingHours)	
+	{
+		CompanyEmpWage companyEmpWage=new CompanyEmpWage(company,wagePerHour,numberOfWorkingDays,numberOfWorkingHours);
+		companyEmpWageList.add(companyEmpWage);
+		companyEmpWageMap.put(company,companyEmpWage);
+	}
+	
+	@Override
+	public void computeWage()
+	{
+		for(CompanyEmpWage list:companyEmpWageList)
+		{
+			if(list==null)
+			continue;
+			list.setTotalWage(calculateEmpWage(list));
+			System.out.println(list);
+			System.out.println("Daily Wage is :"+dailyWageList);
+		}
+	}
+
+	private int calculateEmpWage(CompanyEmpWage companyEmpWage)
 	{
 		int workingHour=0;
 		int currentWorkingDays=0;
 		int currentWorkingHour=0;
+		int totalSalary=0;
+		int dailyWage=0;
 		
-		while(currentWorkingDays<numberOfWorkingDays && currentWorkingHour<numberOfWorkingHours)
+		while(currentWorkingDays<companyEmpWage.numberOfWorkingDays && currentWorkingHour<companyEmpWage.numberOfWorkingHours)
                 {
                         int randomNumber=(int)Math.floor(Math.random()*10)%3;
                         switch(randomNumber)
@@ -45,20 +97,28 @@ public class EmpWageComputation
                         }
                         currentWorkingDays++;
                         currentWorkingHour+=workingHour;
-                        if(currentWorkingHour<numberOfWorkingHours)
-                        totalWage+=workingHour*wagePerHour;
-                        else
+                        if(currentWorkingHour<companyEmpWage.numberOfWorkingHours)
+			{
+				dailyWage=workingHour*companyEmpWage.wagePerHour;
+				dailyWageList.add(dailyWage);
+				totalSalary+=workingHour*companyEmpWage.wagePerHour;
+                        }
+			else
                         break;
                  }
+	return totalSalary;
         }
-		
+	
+	public int getTotalWageByCompany(String company)
+	{
+		return companyEmpWageMap.get(company).totalWage;
+	}
 	public static void main(String[] args)
 	{
-		EmpWageComputation objIntel=new EmpWageComputation("Intel",30,25,100);
-		EmpWageComputation objGoogle=new EmpWageComputation("google",20,26,150);
-		objIntel.calculateEmpWage();
-		System.out.println(objIntel);
-		objGoogle.calculateEmpWage();
-		System.out.println(objGoogle);
+	 	EmpWageComputationDay23 object=new EmpWageComputationDay23();
+		object.addCompanyEmpWage("Intel",20,10,100);
+		object.addCompanyEmpWage("Oracle",30,10,200);
+		object.computeWage();
+		System.out.println("Total wage for the company intel is: " +object.getTotalWageByCompany("Intel"));
 	}
 }
