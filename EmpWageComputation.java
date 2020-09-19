@@ -4,11 +4,12 @@ interface IEmpWageComputation
 {
 	public void addCompanyEmpWage(String company,int wagePerHour,int numberOfWorkingDays,int numberOfWorkingHours);
 	public void computeWage();
+	public int getTotalWageByCompany(String company);
 }
 
 class CompanyEmpWage
 {
-	private int totalWage=0;	
+	public int totalWage=0;	
 	
 	public final String company;
 	public final int wagePerHour;
@@ -33,24 +34,27 @@ class CompanyEmpWage
 	}
 }
 
-public class EmpWageComputation implements IEmpWageComputation
+public class EmpWageComputation implements IEmpWageComputation	
 {		
 	public static final int FULLDAYHOUR=8;
         public static final int PARTTIMEHOUR=4;
 	private int numberOfCompany=0;
 
 	ArrayList<CompanyEmpWage>companyEmpWageList;
-	ArrayList dailyWageList;
+	Map<String,CompanyEmpWage>companyEmpWageMap;
+
 	EmpWageComputation()
 	{
 		companyEmpWageList=new ArrayList<>();
-		dailyWageList=new ArrayList();
+		companyEmpWageMap=new HashMap<>();
 	}
 	
 	@Override	
 	public void addCompanyEmpWage(String company,int wagePerHour,int numberOfWorkingDays,int numberOfWorkingHours)	
 	{
-		companyEmpWageList.add(new CompanyEmpWage(company,wagePerHour,numberOfWorkingDays,numberOfWorkingHours));
+		CompanyEmpWage companyEmpWage=new CompanyEmpWage(company,wagePerHour,numberOfWorkingDays,numberOfWorkingHours);
+		companyEmpWageList.add(companyEmpWage);
+		companyEmpWageMap.put(company,companyEmpWage);
 	}
 	
 	@Override
@@ -62,7 +66,6 @@ public class EmpWageComputation implements IEmpWageComputation
 			continue;
 			list.setTotalWage(calculateEmpWage(list));
 			System.out.println(list);
-			System.out.println("Daily Wage is :"+dailyWageList); 
 		}
 	}
 
@@ -72,7 +75,6 @@ public class EmpWageComputation implements IEmpWageComputation
 		int currentWorkingDays=0;
 		int currentWorkingHour=0;
 		int totalSalary=0;
-		int dailyWage=0;
 		
 		while(currentWorkingDays<companyEmpWage.numberOfWorkingDays && currentWorkingHour<companyEmpWage.numberOfWorkingHours)
                 {
@@ -93,8 +95,6 @@ public class EmpWageComputation implements IEmpWageComputation
                         currentWorkingHour+=workingHour;
                         if(currentWorkingHour<companyEmpWage.numberOfWorkingHours)
 			{
-                        dailyWage=workingHour*companyEmpWage.wagePerHour;
-			dailyWageList.add(dailyWage);
 			totalSalary+=workingHour*companyEmpWage.wagePerHour;
                         }
 			else
@@ -103,11 +103,16 @@ public class EmpWageComputation implements IEmpWageComputation
 	return totalSalary;
         }
 	
+	public int getTotalWageByCompany(String company)
+	{
+		return companyEmpWageMap.get(company).totalWage;
+	}
 	public static void main(String[] args)
 	{
 	 	EmpWageComputation object=new EmpWageComputation();
 		object.addCompanyEmpWage("Intel",20,10,100);
 		object.addCompanyEmpWage("Oracle",30,10,200);
 		object.computeWage();
+		System.out.println("Total wage for the company intel is: " +object.getTotalWageByCompany("Intel"));
 	}
 }
